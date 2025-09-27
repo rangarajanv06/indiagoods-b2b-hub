@@ -47,6 +47,18 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // B2B E-commerce specific colors
+        b2b: {
+          orange: "hsl(var(--b2b-orange))",
+          "orange-light": "hsl(var(--b2b-orange-light))",
+          blue: "hsl(var(--b2b-blue))",
+          "blue-dark": "hsl(var(--b2b-blue-dark))",
+          "gray-50": "hsl(var(--b2b-gray-50))",
+          "gray-100": "hsl(var(--b2b-gray-100))",
+          "gray-200": "hsl(var(--b2b-gray-200))",
+          "gray-600": "hsl(var(--b2b-gray-600))",
+          "gray-900": "hsl(var(--b2b-gray-900))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
