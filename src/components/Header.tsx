@@ -1,8 +1,20 @@
+import { useState } from "react";
 import { Search, Bell, ShoppingCart, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
     <header className="bg-card border-b border-border shadow-[var(--shadow-header)] sticky top-0 z-50">
       {/* Top bar */}
@@ -30,19 +42,22 @@ const Header = () => {
 
           {/* Search bar */}
           <div className="flex-1 max-w-2xl mx-8">
-            <div className="relative flex">
+            <form onSubmit={handleSearch} className="relative flex">
               <Input
                 type="text"
                 placeholder="Search entire store here..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-r-none border-r-0 focus:ring-1 focus:ring-primary"
               />
               <Button 
+                type="submit"
                 className="rounded-l-none bg-b2b-orange hover:bg-b2b-orange/90 text-white px-6"
               >
                 <Search className="h-4 w-4" />
                 Search
               </Button>
-            </div>
+            </form>
           </div>
 
           {/* Right icons */}
