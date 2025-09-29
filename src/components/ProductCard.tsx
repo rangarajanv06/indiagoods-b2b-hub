@@ -1,5 +1,6 @@
 import { Star, Heart, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   id: string;
@@ -15,6 +16,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ 
+  id,
   name, 
   image, 
   price, 
@@ -25,6 +27,11 @@ const ProductCard = ({
   supplier,
   badge 
 }: ProductCardProps) => {
+  const navigate = useNavigate();
+
+  const handleProductClick = () => {
+    navigate(`/product/${id}`);
+  };
   return (
     <div className="bg-card rounded-lg border border-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 group">
       <div className="relative p-4">
@@ -42,7 +49,10 @@ const ProductCard = ({
           <Heart className="h-4 w-4 text-b2b-gray-600 hover:text-red-500" />
         </Button>
 
-        <div className="aspect-square bg-b2b-gray-50 rounded-lg mb-4 flex items-center justify-center">
+        <div 
+          className="aspect-square bg-b2b-gray-50 rounded-lg mb-4 flex items-center justify-center cursor-pointer"
+          onClick={handleProductClick}
+        >
           <img 
             src={image} 
             alt={name}
@@ -51,7 +61,10 @@ const ProductCard = ({
         </div>
 
         <div className="space-y-3">
-          <h3 className="font-medium text-sm text-b2b-gray-900 line-clamp-2 hover:text-b2b-blue cursor-pointer transition-colors">
+          <h3 
+            className="font-medium text-sm text-b2b-gray-900 line-clamp-2 hover:text-b2b-blue cursor-pointer transition-colors"
+            onClick={handleProductClick}
+          >
             {name}
           </h3>
 
