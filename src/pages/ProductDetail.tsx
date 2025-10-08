@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 // Import product images
 import smartphoneImg from "@/assets/products/smartphone.jpg";
@@ -20,6 +22,8 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(10);
   const [selectedImage, setSelectedImage] = useState(0);
+  const { addToCart } = useCart();
+  const { toast } = useToast();
 
   // Mock product database
   const products = {
@@ -238,7 +242,23 @@ const ProductDetail = () => {
                     <MessageCircle className="h-4 w-4 mr-2" />
                     Contact Supplier
                   </Button>
-                  <Button className="flex-1 bg-b2b-orange hover:bg-b2b-orange/90">
+                  <Button 
+                    className="flex-1 bg-b2b-orange hover:bg-b2b-orange/90"
+                    onClick={() => {
+                      addToCart({
+                        id: parseInt(id || "1"),
+                        name: product.name,
+                        price: parseFloat(product.price.replace(/[₹,]/g, '')),
+                        image: product.images[0],
+                        supplier: product.supplier,
+                        moq: 10
+                      });
+                      toast({
+                        title: "Added to Cart",
+                        description: `${quantity} units added to your cart`,
+                      });
+                    }}
+                  >
                     <ShoppingCart className="h-4 w-4 mr-2" />
                     Add to Cart
                   </Button>
